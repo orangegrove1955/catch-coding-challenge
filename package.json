@@ -4,7 +4,11 @@
   "description": "Backend coding challenge for Catch",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
