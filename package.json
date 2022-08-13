@@ -1,0 +1,20 @@
+{
+  "name": "catch-coding-challenge",
+  "version": "1.0.0",
+  "description": "Backend coding challenge for Catch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orangegrove1955/catch-coding-challenge.git"
+  },
+  "keywords": [],
+  "author": "Matthew Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orangegrove1955/catch-coding-challenge/issues"
+  },
+  "homepage": "https://github.com/orangegrove1955/catch-coding-challenge#readme"
+}
