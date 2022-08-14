@@ -139,7 +139,7 @@ describe('Process records', () => {
     });
   });
 
-  fdescribe('should process an entire record successfully', () => {
+  describe('should process an entire record successfully', () => {
     describe('processSingleRecord', () => {
       it('should include all required fields for CSV lines correctly', () => {
         const record = processSingleRecord(basicOrder);
