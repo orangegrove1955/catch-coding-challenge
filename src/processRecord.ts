@@ -1,6 +1,14 @@
 import { CSVLine } from './interfaces/CSV';
 import { Order, OrderItem } from './interfaces/Order';
 
+/**
+ * Process a single Order record to prepare data for input into CSV
+ *
+ * Takes in full order details from jsonlines file, and processes
+ * information to extract only fields required for CSV
+ * @param order Order to process
+ * @returns Collection of fields to put into CSV
+ */
 export const processSingleRecord = (order: Order): CSVLine => {
   if (!order.items) return;
 
