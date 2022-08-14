@@ -138,4 +138,33 @@ describe('Process records', () => {
       });
     });
   });
+
+  fdescribe('should process an entire record successfully', () => {
+    describe('processSingleRecord', () => {
+      it('should include all required fields for CSV lines correctly', () => {
+        const record = processSingleRecord(basicOrder);
+
+        expect(record).toHaveProperty('order_id');
+        expect(record.order_id).toBe(1001);
+
+        expect(record).toHaveProperty('order_datetime');
+        expect(record.order_datetime).toBe('2019-03-08T12:13:29.000Z');
+
+        expect(record).toHaveProperty('total_order_value');
+        expect(record.total_order_value).toBe(0);
+
+        expect(record).toHaveProperty('average_unit_price');
+        expect(record.average_unit_price).toBe(0);
+
+        expect(record).toHaveProperty('distinct_unit_count');
+        expect(record.distinct_unit_count).toBe(2);
+
+        expect(record).toHaveProperty('total_units_count');
+        expect(record.total_units_count).toBe(6);
+
+        expect(record).toHaveProperty('customer_state');
+        expect(record.customer_state).toBe('VIC');
+      });
+    });
+  });
 });
