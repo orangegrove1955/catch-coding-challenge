@@ -2,9 +2,13 @@ import { CSVLine } from './interfaces/CSV';
 import { Order, OrderItem } from './interfaces/Order';
 
 export const processSingleRecord = (order: Order): CSVLine => {
+  if (!order.items) return;
+
+  const total_order_value = calculateTotalValue(order);
+  if (total_order_value === 0) return;
+
   const order_id = order.order_id;
   const order_datetime = formatDateTime(order.order_date);
-  const total_order_value = calculateTotalValue(order);
   const average_unit_price = 0;
   const distinct_unit_count = countDistinctUnits(order.items);
   const total_units_count = countTotalUnits(order.items);

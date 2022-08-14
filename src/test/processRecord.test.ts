@@ -13,14 +13,11 @@ import {
   orderNoItems,
   orderWithDollarDiscount,
   orderWithPercentageDiscount,
-  orderMultipleDiscountTypes
+  orderMultipleDiscountTypes,
+  orderZeroValue
 } from './__mocks__/mockOrders';
 
 describe('Process records', () => {
-  it('should exclude 0 total order value records from summary', () => {
-    expect(true).toBe(false);
-  });
-
   it('should process order_id', () => {
     const record = processSingleRecord(basicOrder);
     expect(record).toHaveProperty('order_id');
@@ -167,6 +164,18 @@ describe('Process records', () => {
 
   describe('should process an entire record successfully', () => {
     describe('processSingleRecord', () => {
+      describe('should exclude 0 total order value records from summary', () => {
+        it('for an order with no items', () => {
+          const record = processSingleRecord(orderNoItems);
+          expect(record).toBe(undefined);
+        });
+
+        it('for an order with total order value of 0', () => {
+          const record = processSingleRecord(orderZeroValue);
+          expect(record).toBe(undefined);
+        });
+      });
+
       it('should include all required fields for CSV lines correctly', () => {
         const record = processSingleRecord(basicOrder);
 
