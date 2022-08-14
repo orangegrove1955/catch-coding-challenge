@@ -1,5 +1,9 @@
+import { processSingleRecord } from './processRecord';
+import { basicOrder } from './test/__mocks__/mockOrders';
+
 const main = async () => {
-  console.log('running');
+  const record = processSingleRecord(basicOrder);
+  console.log(record);
 };
 
 main();
