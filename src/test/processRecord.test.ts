@@ -1,5 +1,6 @@
 import {
   countDistinctUnits,
+  countTotalUnits,
   formatDateTime,
   formatState,
   processSingleRecord
@@ -7,7 +8,7 @@ import {
 import {
   basicOrder,
   orderWithDiscounts,
-  orderUniqueUnits
+  orderDistinctUnits
 } from './__mocks__/mockOrders';
 
 describe('Process records', () => {
@@ -49,7 +50,7 @@ describe('Process records', () => {
       it('should return the correct count for an order items array', () => {
         expect(countDistinctUnits(basicOrder.items)).toBe(2);
         expect(countDistinctUnits(orderWithDiscounts.items)).toBe(2);
-        expect(countDistinctUnits(orderUniqueUnits.items)).toBe(10);
+        expect(countDistinctUnits(orderDistinctUnits.items)).toBe(10);
       });
 
       it('should return 0 for an empty array', () => {
@@ -58,8 +59,18 @@ describe('Process records', () => {
     });
   });
 
-  it('should process total_units_count', () => {
-    expect(true).toBe(false);
+  describe('should process total_units_count', () => {
+    describe('countTotalUnits', () => {
+      it('should return the correct count for an order items array', () => {
+        expect(countTotalUnits(basicOrder.items)).toBe(6);
+        expect(countTotalUnits(orderWithDiscounts.items)).toBe(7);
+        expect(countTotalUnits(orderDistinctUnits.items)).toBe(28);
+      });
+
+      it('should return 0 for an empty array', () => {
+        expect(countTotalUnits([])).toBe(0);
+      });
+    });
   });
 
   describe('should process customer_state', () => {

@@ -76,7 +76,7 @@ export const basicOrder: Order = {
   shipping_price: 6.99
 };
 
-export const orderUniqueUnits: Order = {
+export const orderDistinctUnits: Order = {
   order_id: 1006,
   order_date: 'Fri, 08 Mar 2019 20:22:51 +0000',
   customer: {

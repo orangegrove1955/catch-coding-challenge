@@ -7,7 +7,7 @@ export const processSingleRecord = (line: Order): CSVLine => {
   const total_order_value = 0;
   const average_unit_price = 0;
   const distinct_unit_count = countDistinctUnits(line.items);
-  const total_units_count = 0;
+  const total_units_count = countTotalUnits(line.items);
   const customer_state = formatState(line.customer.shipping_address.state);
 
   return {
@@ -30,6 +30,20 @@ export const processSingleRecord = (line: Order): CSVLine => {
  */
 export const countDistinctUnits = (items: OrderItem[]): number => {
   return items.length;
+};
+
+/**
+ * Count the number of total units in an order based on quantities
+ * of each distinct unit in items array
+ * @param items Array of items to count
+ * @returns Number of total units in order
+ */
+export const countTotalUnits = (items: OrderItem[]): number => {
+  const result = items.reduce((accumulator, item) => {
+    return accumulator + item.quantity;
+  }, 0);
+
+  return result;
 };
 
 /**
