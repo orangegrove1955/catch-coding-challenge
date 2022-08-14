@@ -1,4 +1,4 @@
-import { formatState } from '../processRecord';
+import { formatDateTime, formatState } from '../processRecord';
 
 describe('Process records', () => {
   it('should exclude 0 total order value records from summary', () => {
@@ -9,8 +9,19 @@ describe('Process records', () => {
     expect(true).toBe(false);
   });
 
-  it('should process order_datetime', () => {
-    expect(true).toBe(false);
+  describe('should process order_datetime', () => {
+    describe('formatDateTime', () => {
+      it('should format date to ISO 8601 correctly', () => {
+        expect(formatDateTime('Fri, 08 Mar 2019 12:13:29 +0000')).toBe(
+          '2019-03-08T12:13:29.000Z'
+        );
+      });
+
+      it('should return empty string when input is not valid time value', () => {
+        expect(() => formatDateTime('')).not.toThrowError();
+        expect(formatDateTime('')).toBe('');
+      });
+    });
   });
 
   it('should process total_order_value', () => {

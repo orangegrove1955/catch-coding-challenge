@@ -4,40 +4,6 @@ describe('Download file', () => {
   });
 });
 
-describe('Process records', () => {
-  it('should exclude 0 total order value records from summary', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process order_id', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process order_datetime', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process total_order_value', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process average_unit_price', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process distinct_unit_count', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process total_units_count', () => {
-    expect(true).toBe(false);
-  });
-
-  it('should process customer_state', () => {
-    expect(true).toBe(false);
-  });
-});
-
 describe('Create output file', () => {
   it('should produce an output file', () => {
     expect(true).toBe(false);
