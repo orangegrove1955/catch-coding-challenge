@@ -1,7 +1,8 @@
 import {
   countDistinctUnits,
   formatDateTime,
-  formatState
+  formatState,
+  processSingleRecord
 } from '../processRecord';
 import {
   basicOrder,
@@ -15,7 +16,9 @@ describe('Process records', () => {
   });
 
   it('should process order_id', () => {
-    expect(true).toBe(false);
+    const record = processSingleRecord(basicOrder);
+    expect(record).toHaveProperty('order_id');
+    expect(record.order_id).toBe(1001);
   });
 
   describe('should process order_datetime', () => {

@@ -2,7 +2,7 @@ import { CSVLine } from './interfaces/CSV';
 import { Order, OrderItem } from './interfaces/Order';
 
 export const processSingleRecord = (line: Order): CSVLine => {
-  const order_id = 0;
+  const order_id = line.order_id;
   const order_datetime = formatDateTime(line.order_date);
   const total_order_value = 0;
   const average_unit_price = 0;
