@@ -62,7 +62,7 @@ describe('Process records', () => {
       });
 
       it('should correctly calculate total value for an order with multiple discount types', () => {
-        expect(calculateTotalValue(orderMultipleDiscountTypes)).toBe(359.78);
+        expect(calculateTotalValue(orderMultipleDiscountTypes)).toBe(339.19);
       });
     });
   });

@@ -22,7 +22,7 @@ export const processSingleRecord = (order: Order): CSVLine => {
 };
 
 /**
- * Round a value to only 2 decimal points to be used for money
+ * Round a value to max of 2 decimal points to be used for money
  * @param value Value to round
  * @returns 2 decimal point rounded version of value
  */
@@ -42,11 +42,17 @@ export const calculateTotalValue = (order: Order): number => {
     return accumulator + item.quantity * item.unit_price;
   }, 0);
 
-  const totalValue = roundValue(rawTotal);
+  let totalValue = roundValue(rawTotal);
 
-  // TODO: Add discount logic in
   if (order.discounts) {
-    console.log('has discount');
+    for (const discount of order.discounts) {
+      if (discount.type === 'DOLLAR') {
+        totalValue -= discount.value;
+      } else if (discount.type === 'PERCENTAGE') {
+        totalValue = totalValue - totalValue * (discount.value / 100);
+      }
+      totalValue = roundValue(totalValue);
+    }
   }
 
   return totalValue;
