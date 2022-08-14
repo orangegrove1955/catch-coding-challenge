@@ -1,12 +1,12 @@
 import { CSVLine } from './interfaces/CSV';
-import { Order } from './interfaces/Order';
+import { Order, OrderItem } from './interfaces/Order';
 
 export const processSingleRecord = (line: Order): CSVLine => {
   const order_id = 0;
   const order_datetime = formatDateTime(line.order_date);
   const total_order_value = 0;
   const average_unit_price = 0;
-  const distinct_unit_count = 0;
+  const distinct_unit_count = countDistinctUnits(line.items);
   const total_units_count = 0;
   const customer_state = formatState(line.customer.shipping_address.state);
 
@@ -19,6 +19,17 @@ export const processSingleRecord = (line: Order): CSVLine => {
     total_units_count,
     customer_state
   };
+};
+
+/**
+ * Count the number of distinct units in an items array. These distinct items are assumed
+ * to be based on the number of separate units within the items array, with all items
+ * grouped together correctly, no duplicates
+ * @param items Array of items to count
+ * @returns Number of distinct units in order
+ */
+export const countDistinctUnits = (items: OrderItem[]): number => {
+  return items.length;
 };
 
 /**

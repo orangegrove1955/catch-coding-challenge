@@ -1,4 +1,13 @@
-import { formatDateTime, formatState } from '../processRecord';
+import {
+  countDistinctUnits,
+  formatDateTime,
+  formatState
+} from '../processRecord';
+import {
+  basicOrder,
+  orderWithDiscounts,
+  orderUniqueUnits
+} from './__mocks__/mockOrders';
 
 describe('Process records', () => {
   it('should exclude 0 total order value records from summary', () => {
@@ -32,8 +41,18 @@ describe('Process records', () => {
     expect(true).toBe(false);
   });
 
-  it('should process distinct_unit_count', () => {
-    expect(true).toBe(false);
+  describe('should process distinct_unit_count', () => {
+    describe('countDistinctUnits', () => {
+      it('should return the correct count for an order items array', () => {
+        expect(countDistinctUnits(basicOrder.items)).toBe(2);
+        expect(countDistinctUnits(orderWithDiscounts.items)).toBe(2);
+        expect(countDistinctUnits(orderUniqueUnits.items)).toBe(10);
+      });
+
+      it('should return 0 for an empty array', () => {
+        expect(countDistinctUnits([])).toBe(0);
+      });
+    });
   });
 
   it('should process total_units_count', () => {
