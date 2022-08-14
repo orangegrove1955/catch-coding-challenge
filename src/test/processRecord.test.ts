@@ -177,7 +177,7 @@ describe('Process records', () => {
         expect(record.order_datetime).toBe('2019-03-08T12:13:29.000Z');
 
         expect(record).toHaveProperty('total_order_value');
-        expect(record.total_order_value).toBe(0);
+        expect(record.total_order_value).toBe(359.78);
 
         expect(record).toHaveProperty('average_unit_price');
         expect(record.average_unit_price).toBe(0);
