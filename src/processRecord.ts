@@ -17,9 +17,12 @@ export const processSingleRecord = (order: Order): CSVLine => {
 
   const order_id = order.order_id;
   const order_datetime = formatDateTime(order.order_date);
-  const average_unit_price = 0;
   const distinct_unit_count = countDistinctUnits(order.items);
   const total_units_count = countTotalUnits(order.items);
+  const average_unit_price = calculateAverageUnitPrice(
+    total_order_value,
+    total_units_count
+  );
   const customer_state = formatState(order.customer.shipping_address.state);
 
   return {
@@ -40,6 +43,22 @@ export const processSingleRecord = (order: Order): CSVLine => {
  */
 export const roundValue = (value: number): number => {
   return Math.round((value + Number.EPSILON) * 100) / 100;
+};
+
+/**
+ * Calculates the average unit price in dollars for all
+ * items in an order
+ * @param totalPrice Total price of all units, in dollars
+ * @param totalUnits Total amount of units
+ * @returns Average unit price in dollars
+ */
+export const calculateAverageUnitPrice = (
+  totalPrice: number,
+  totalUnits: number
+): number => {
+  if (totalUnits === 0) return 0; // prevent divide by 0 errors
+
+  return roundValue(totalPrice / totalUnits);
 };
 
 /**

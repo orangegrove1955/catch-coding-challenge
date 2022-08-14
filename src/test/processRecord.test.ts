@@ -1,4 +1,5 @@
 import {
+  calculateAverageUnitPrice,
   calculateTotalValue,
   countDistinctUnits,
   countTotalUnits,
@@ -64,8 +65,24 @@ describe('Process records', () => {
     });
   });
 
-  it('should process average_unit_price', () => {
-    expect(true).toBe(false);
+  describe('should process average_unit_price', () => {
+    describe('calculateAverageUnitPrice', () => {
+      it('should return 0 if totalUnits is 0', () => {
+        expect(calculateAverageUnitPrice(1, 0)).toBe(0);
+      });
+
+      it('should correctly calculate average price to max 2 decimal places for non decimal values', () => {
+        expect(calculateAverageUnitPrice(10, 2)).toBe(5);
+        expect(calculateAverageUnitPrice(40, 3)).toBe(13.33);
+        expect(calculateAverageUnitPrice(99, 7)).toBe(14.14);
+      });
+
+      it('should correctly calculate average price to max 2 decimal places for decimal values', () => {
+        expect(calculateAverageUnitPrice(19.99, 2)).toBe(9.99);
+        expect(calculateAverageUnitPrice(237.85, 7)).toBe(33.98);
+        expect(calculateAverageUnitPrice(44.11, 5)).toBe(8.82);
+      });
+    });
   });
 
   describe('should process distinct_unit_count', () => {
@@ -189,7 +206,7 @@ describe('Process records', () => {
         expect(record.total_order_value).toBe(359.78);
 
         expect(record).toHaveProperty('average_unit_price');
-        expect(record.average_unit_price).toBe(0);
+        expect(record.average_unit_price).toBe(59.96);
 
         expect(record).toHaveProperty('distinct_unit_count');
         expect(record.distinct_unit_count).toBe(2);
