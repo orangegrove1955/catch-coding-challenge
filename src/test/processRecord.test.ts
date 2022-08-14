@@ -1,14 +1,19 @@
 import {
+  calculateTotalValue,
   countDistinctUnits,
   countTotalUnits,
   formatDateTime,
   formatState,
-  processSingleRecord
+  processSingleRecord,
+  roundValue
 } from '../processRecord';
 import {
   basicOrder,
-  orderWithDiscounts,
-  orderDistinctUnits
+  orderDistinctUnits,
+  orderNoItems,
+  orderWithDollarDiscount,
+  orderWithPercentageDiscount,
+  orderMultipleDiscountTypes
 } from './__mocks__/mockOrders';
 
 describe('Process records', () => {
@@ -37,8 +42,29 @@ describe('Process records', () => {
     });
   });
 
-  it('should process total_order_value', () => {
-    expect(true).toBe(false);
+  describe('should process total_order_value', () => {
+    describe('calculateTotalValue', () => {
+      it('should return 0 for an order with no items', () => {
+        expect(calculateTotalValue(orderNoItems)).toBe(0);
+      });
+
+      it('should correctly calculate total value for an order without discounts', () => {
+        expect(calculateTotalValue(basicOrder)).toBe(359.78);
+        expect(calculateTotalValue(orderDistinctUnits)).toBe(2330.86);
+      });
+
+      it('should correctly calculate total value for an order with only dollar amount discounts', () => {
+        expect(calculateTotalValue(orderWithDollarDiscount)).toBe(271.94);
+      });
+
+      it('should correctly calculate total value for an order with only percentage discounts', () => {
+        expect(calculateTotalValue(orderWithPercentageDiscount)).toBe(8910.44);
+      });
+
+      it('should correctly calculate total value for an order with multiple discount types', () => {
+        expect(calculateTotalValue(orderMultipleDiscountTypes)).toBe(359.78);
+      });
+    });
   });
 
   it('should process average_unit_price', () => {
@@ -49,7 +75,7 @@ describe('Process records', () => {
     describe('countDistinctUnits', () => {
       it('should return the correct count for an order items array', () => {
         expect(countDistinctUnits(basicOrder.items)).toBe(2);
-        expect(countDistinctUnits(orderWithDiscounts.items)).toBe(2);
+        expect(countDistinctUnits(orderMultipleDiscountTypes.items)).toBe(2);
         expect(countDistinctUnits(orderDistinctUnits.items)).toBe(10);
       });
 
@@ -63,7 +89,7 @@ describe('Process records', () => {
     describe('countTotalUnits', () => {
       it('should return the correct count for an order items array', () => {
         expect(countTotalUnits(basicOrder.items)).toBe(6);
-        expect(countTotalUnits(orderWithDiscounts.items)).toBe(7);
+        expect(countTotalUnits(orderMultipleDiscountTypes.items)).toBe(7);
         expect(countTotalUnits(orderDistinctUnits.items)).toBe(28);
       });
 
@@ -164,6 +190,18 @@ describe('Process records', () => {
 
         expect(record).toHaveProperty('customer_state');
         expect(record.customer_state).toBe('VIC');
+      });
+    });
+  });
+
+  describe('should include money values with only 2 decimal places', () => {
+    describe('roundValue', () => {
+      it('should correctly round a positive number to a maximum of 2 decimal places', () => {
+        expect(roundValue(1.005)).toBe(1.01);
+      });
+
+      it('should correctly round a negative number to a maximum of 2 decimal places', () => {
+        expect(roundValue(-2.01004)).toBe(-2.01);
       });
     });
   });

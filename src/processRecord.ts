@@ -1,14 +1,14 @@
 import { CSVLine } from './interfaces/CSV';
 import { Order, OrderItem } from './interfaces/Order';
 
-export const processSingleRecord = (line: Order): CSVLine => {
-  const order_id = line.order_id;
-  const order_datetime = formatDateTime(line.order_date);
+export const processSingleRecord = (order: Order): CSVLine => {
+  const order_id = order.order_id;
+  const order_datetime = formatDateTime(order.order_date);
   const total_order_value = 0;
   const average_unit_price = 0;
-  const distinct_unit_count = countDistinctUnits(line.items);
-  const total_units_count = countTotalUnits(line.items);
-  const customer_state = formatState(line.customer.shipping_address.state);
+  const distinct_unit_count = countDistinctUnits(order.items);
+  const total_units_count = countTotalUnits(order.items);
+  const customer_state = formatState(order.customer.shipping_address.state);
 
   return {
     order_id,
@@ -19,6 +19,37 @@ export const processSingleRecord = (line: Order): CSVLine => {
     total_units_count,
     customer_state
   };
+};
+
+/**
+ * Round a value to only 2 decimal points to be used for money
+ * @param value Value to round
+ * @returns 2 decimal point rounded version of value
+ */
+export const roundValue = (value: number): number => {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+};
+
+/**
+ * Calculate the total value of an order, not including shipping prices.
+ * The total value is the sum of all units based on the quantity and unit
+ * price of each distinct unit, minus any discounts for the order.
+ * @param order Order to calculate total for
+ * @returns Order's total value in dollars
+ */
+export const calculateTotalValue = (order: Order): number => {
+  const rawTotal = order.items.reduce((accumulator, item) => {
+    return accumulator + item.quantity * item.unit_price;
+  }, 0);
+
+  const totalValue = roundValue(rawTotal);
+
+  // TODO: Add discount logic in
+  if (order.discounts) {
+    console.log('has discount');
+  }
+
+  return totalValue;
 };
 
 /**

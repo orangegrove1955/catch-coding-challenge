@@ -76,6 +76,27 @@ export const basicOrder: Order = {
   shipping_price: 6.99
 };
 
+export const orderNoItems: Order = {
+  order_id: 1001,
+  order_date: 'Fri, 08 Mar 2019 12:13:29 +0000',
+  customer: {
+    customer_id: 7970214,
+    first_name: 'Edwardo',
+    last_name: 'Rowe',
+    email: 'edwardo.rowe@example.org',
+    phone: '(08) 7167 1968',
+    shipping_address: {
+      street: 'FLAT 2 896 NEPEAN HWY',
+      postcode: '3931',
+      suburb: 'MORNINGTON',
+      state: 'VICTORIA'
+    }
+  },
+  items: [],
+  discounts: [],
+  shipping_price: 6.99
+};
+
 export const orderDistinctUnits: Order = {
   order_id: 1006,
   order_date: 'Fri, 08 Mar 2019 20:22:51 +0000',
@@ -364,7 +385,233 @@ export const orderDistinctUnits: Order = {
   shipping_price: 15.99
 };
 
-export const orderWithDiscounts: Order = {
+export const orderWithDollarDiscount: Order = {
+  order_id: 1036,
+  order_date: 'Sun, 10 Mar 2019 09:38:05 +0000',
+  customer: {
+    customer_id: 2628395,
+    first_name: 'Shyann',
+    last_name: 'Auer',
+    email: 'shyann.auer@example.com',
+    phone: '5425 1674',
+    shipping_address: {
+      street: '16 HAYTER ST',
+      postcode: '2481',
+      suburb: 'SUFFOLK PARK',
+      state: 'NEW SOUTH WALES'
+    }
+  },
+  items: [
+    {
+      quantity: 4,
+      unit_price: 59.99,
+      product: {
+        product_id: 3738592,
+        title: "ASICS Grade-School Boys' Patriot 10 Shoe - Black/Lemon Spark",
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0019/19203/5cafd942400da045456485.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0019/19203/5cafd942400da045456485_w200.jpg',
+        category: [
+          'KIDS SPORTS AND FITNESS',
+          'FOOTWEAR - BOYS',
+          'RUNNING',
+          'RUNNING SHOES'
+        ],
+        url: 'https://www.catch.com.au/product/asics-grade-school-boys-patriot-10-shoe-black-lemon-spark-3738592',
+        upc: '4550214075159',
+        gtin14: null,
+        created_at: '2019-02-25 15:43:24',
+        brand: { id: 2808, name: 'ASICS' }
+      }
+    },
+    {
+      quantity: 2,
+      unit_price: 19.99,
+      product: {
+        product_id: 3919772,
+        title: 'Silky Ribbon',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0019/19321/5cb6e0dc4a466130985306.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0019/19321/5cb6e0dc4a466130985306_w200.jpg',
+        category: ['ADULT', 'ACCESSORIES', 'ACCESSORIES', 'ACCESSORIES ADULT'],
+        url: 'https://www.catch.com.au/product/silky-ribbon-3919772',
+        upc: '8714273797360',
+        gtin14: null,
+        created_at: '2019-04-05 13:42:45',
+        brand: { id: 100165, name: 'Shots Media' }
+      }
+    }
+  ],
+  discounts: [{ type: 'DOLLAR', value: 8, priority: 1 }],
+  shipping_price: 9.99
+};
+
+export const orderWithPercentageDiscount: Order = {
+  order_id: 1047,
+  order_date: 'Mon, 11 Mar 2019 01:17:59 +0000',
+  customer: {
+    customer_id: 8891502,
+    first_name: 'Dudley',
+    last_name: 'Hane',
+    email: 'dudley.hane@example.com',
+    phone: '0322654740',
+    shipping_address: {
+      street: '19 BINNA BURRA ST',
+      postcode: '2163',
+      suburb: 'VILLAWOOD',
+      state: 'NEW SOUTH WALES'
+    }
+  },
+  items: [
+    {
+      quantity: 1,
+      unit_price: 59.99,
+      product: {
+        product_id: 3725216,
+        title: 'Everlast Dual Layer Exercise Mat - Black/Yellow',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0018/18141/5c8195720eb12645835477.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0018/18141/5c8195720eb12645835477_w200.jpg',
+        category: [
+          'SPORTS AND FITNESS',
+          'EQUIPMENT',
+          'GYM - TRAINING',
+          'EQUIPMENT'
+        ],
+        url: 'https://www.catch.com.au/product/everlast-dual-layer-exercise-mat-black-yellow-3725216',
+        upc: '9343568071213',
+        gtin14: null,
+        created_at: '2019-02-21 17:27:52',
+        brand: { id: 3727, name: 'Everlast' }
+      }
+    },
+    {
+      quantity: 3,
+      unit_price: 9.99,
+      product: {
+        product_id: 3720191,
+        title: 'Alex Spa Sketch & Sparkle Tattoo Pens ',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0018/18041/5c7cf7b7cd7d6961547829.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0018/18041/5c7cf7b7cd7d6961547829_w200.jpg',
+        category: [
+          'STATIONERY AND OFFICE',
+          'CHILDREN',
+          'STATIONERY/ART/CRAFT',
+          'CRAFT KITS'
+        ],
+        url: 'https://www.catch.com.au/product/alex-spa-sketch-sparkle-tattoo-pens-3720191',
+        upc: '731346179937',
+        gtin14: null,
+        created_at: '2019-02-20 12:13:53',
+        brand: { id: 7078, name: 'Alex' }
+      }
+    },
+    {
+      quantity: 6,
+      unit_price: 1499,
+      product: {
+        product_id: 3467690,
+        title: 'Quartet 2 Door 1200x900mm Aluminum Frame Fabric Board - Grey ',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0016/16593/5c3d8ae7ca773787407686.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0016/16593/5c3d8ae7ca773787407686_w200.jpg',
+        category: [
+          'STATIONERY AND OFFICE',
+          'STATIONERY AND OFFICE SUPPLIES',
+          'PRESENTATIONS',
+          'WHITEBOARDS'
+        ],
+        url: 'https://www.catch.com.au/product/quartet-2-door-1200x900mm-aluminum-frame-fabric-board-grey-3467690',
+        upc: '34138236437',
+        gtin14: null,
+        created_at: '2019-01-04 15:21:56',
+        brand: { id: 4204, name: 'Quartet' }
+      }
+    },
+    {
+      quantity: 4,
+      unit_price: 24.99,
+      product: {
+        product_id: 3486820,
+        title: 'Sheridan Luella Standard European Pillowcase - Atlantic',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0017/17772/5c6e5871b621a889438912.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0017/17772/5c6e5871b621a889438912_w200.jpg',
+        category: ['HOME', 'BED LINEN', 'QUILT COVERS', 'PILLOWCASE'],
+        url: 'https://www.catch.com.au/product/sheridan-luella-standard-european-pillowcase-atlantic-3486820',
+        upc: '9311838283314',
+        gtin14: null,
+        created_at: '2019-01-08 10:59:13',
+        brand: { id: 2842, name: 'Sheridan' }
+      }
+    },
+    {
+      quantity: 1,
+      unit_price: 9.99,
+      product: {
+        product_id: 3720191,
+        title: 'Alex Spa Sketch & Sparkle Tattoo Pens ',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0018/18041/5c7cf7b7cd7d6961547829.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0018/18041/5c7cf7b7cd7d6961547829_w200.jpg',
+        category: [
+          'STATIONERY AND OFFICE',
+          'CHILDREN',
+          'STATIONERY/ART/CRAFT',
+          'CRAFT KITS'
+        ],
+        url: 'https://www.catch.com.au/product/alex-spa-sketch-sparkle-tattoo-pens-3720191',
+        upc: '731346179937',
+        gtin14: null,
+        created_at: '2019-02-20 12:13:53',
+        brand: { id: 7078, name: 'Alex' }
+      }
+    },
+    {
+      quantity: 4,
+      unit_price: 21.95,
+      product: {
+        product_id: 3713841,
+        title: 'VTech Baby Tiny Touch Tablet',
+        subtitle: null,
+        image:
+          'https://s.catch.com.au/images/product/0018/18072/5c7f0eef25d37429664448.jpg',
+        thumbnail:
+          'https://s.catch.com.au/images/product/0018/18072/5c7f0eef25d37429664448_w200.jpg',
+        category: [
+          'BABY',
+          'ACTIVITIES AND PLAYTIME',
+          'PLAYTIME',
+          'BABY ACTION/REACTION TOYS'
+        ],
+        url: 'https://www.catch.com.au/product/vtech-baby-tiny-touch-tablet-3713841',
+        upc: '3417761382035',
+        gtin14: null,
+        created_at: '2019-02-18 16:27:12',
+        brand: { id: 8430, name: 'Vtech Baby' }
+      }
+    }
+  ],
+  discounts: [{ type: 'PERCENTAGE', value: 4, priority: 1 }],
+  shipping_price: 12.99
+};
+
+export const orderMultipleDiscountTypes: Order = {
   order_id: 1033,
   order_date: 'Sun, 10 Mar 2019 06:30:02 +0000',
   customer: {
