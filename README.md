@@ -16,11 +16,11 @@ It was mentioned this task should not take more than a few hours, so some limita
 
 ## Installation
 
-To install the project, ensure version 8.11.0 of npm is installed, and run `npm install` from the root directory
+To install the project, ensure version **8.11.0** of npm is installed, and run `npm install` from the root directory
 
 ## Execution
 
-To execute the project, ensure version 16.16.0 of node is installed, and run `npm run start` from the root directory
+To execute the project, ensure version **16.16.0** of node is installed, and run `npm run start` from the root directory
 
 ## Testing
 
