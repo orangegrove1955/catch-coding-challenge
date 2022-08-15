@@ -105,3 +105,6 @@ dist
 
 # Generated output
 out.csv
+
+# Mac DS store
+.DS_Store
