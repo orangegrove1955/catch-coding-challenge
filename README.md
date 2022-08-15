@@ -1,5 +1,19 @@
 # Catch coding challenge - Backend
 
+```
+author: Matthew Williams
+email: orangegrove_1955@hotmail.com
+mobile: 0432679541
+```
+
+This repo contains a completed implementation of the Backend Catch coding challenge. It makes use of an Axios stream to the file from the internet, which is then piped into a parser to process each line of the file, and convert it to CSV. This CSV formatted output is then likewise piped to a writeable stream to produce `out.csv`.
+
+Streams were chosen for this project to allow continuously flowing data, which will allow much larger files than the example file to be processed. The project is implemented in `typescript v4.7.4` for `node v16.16.0` and `npm v8.11.0`, and utilises Jest as its test runner.
+
+## Notes
+
+It was mentioned this task should not take more than a few hours, so some limitations have occurred from trying to stick to that. The most noticeable is the lack of testing for streams, in particular the downloading of the file, as well as the writeable stream to output the CSV file. While in a proper development situation these would be necessary, they have been omitted here as there are very few examples online of proper testing, and the time it would have taken would have prevented the task being completed.
+
 ## Installation
 
 To install the project, ensure version 8.11.0 of npm is installed, and run `npm install` from the root directory
