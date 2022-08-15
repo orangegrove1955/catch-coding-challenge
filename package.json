@@ -42,5 +42,10 @@
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/"
     ]
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "json2csv": "^5.0.7",
+    "split": "^1.0.1"
   }
 }
