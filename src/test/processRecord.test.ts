@@ -1,8 +1,7 @@
 import {
   calculateAverageUnitPrice,
-  calculateTotalValue,
+  calculateTotalValueAndUnits,
   countDistinctUnits,
-  countTotalUnits,
   formatDateTime,
   formatState,
   processSingleRecord,
@@ -41,26 +40,41 @@ describe('Process records', () => {
   });
 
   describe('should process total_order_value', () => {
-    describe('calculateTotalValue', () => {
+    describe('calculateTotalValueAndUnits', () => {
       it('should return 0 for an order with no items', () => {
-        expect(calculateTotalValue(orderNoItems)).toBe(0);
+        const { total_order_value } = calculateTotalValueAndUnits(orderNoItems);
+        expect(total_order_value).toBe(0);
       });
 
       it('should correctly calculate total value for an order without discounts', () => {
-        expect(calculateTotalValue(basicOrder)).toBe(359.78);
-        expect(calculateTotalValue(orderDistinctUnits)).toBe(2330.86);
+        const { total_order_value: basicOrderTotalValue } =
+          calculateTotalValueAndUnits(basicOrder);
+        expect(basicOrderTotalValue).toBe(359.78);
+
+        const { total_order_value: orderDistinctUnitsTotalValue } =
+          calculateTotalValueAndUnits(orderDistinctUnits);
+        expect(orderDistinctUnitsTotalValue).toBe(2330.86);
       });
 
       it('should correctly calculate total value for an order with only dollar amount discounts', () => {
-        expect(calculateTotalValue(orderWithDollarDiscount)).toBe(271.94);
+        const { total_order_value } = calculateTotalValueAndUnits(
+          orderWithDollarDiscount
+        );
+        expect(total_order_value).toBe(271.94);
       });
 
       it('should correctly calculate total value for an order with only percentage discounts', () => {
-        expect(calculateTotalValue(orderWithPercentageDiscount)).toBe(8910.44);
+        const { total_order_value } = calculateTotalValueAndUnits(
+          orderWithPercentageDiscount
+        );
+        expect(total_order_value).toBe(8910.44);
       });
 
       it('should correctly calculate total value for an order with multiple discount types', () => {
-        expect(calculateTotalValue(orderMultipleDiscountTypes)).toBe(339.19);
+        const { total_order_value } = calculateTotalValueAndUnits(
+          orderMultipleDiscountTypes
+        );
+        expect(total_order_value).toBe(339.19);
       });
     });
   });
@@ -102,13 +116,22 @@ describe('Process records', () => {
   describe('should process total_units_count', () => {
     describe('countTotalUnits', () => {
       it('should return the correct count for an order items array', () => {
-        expect(countTotalUnits(basicOrder.items)).toBe(6);
-        expect(countTotalUnits(orderMultipleDiscountTypes.items)).toBe(7);
-        expect(countTotalUnits(orderDistinctUnits.items)).toBe(28);
+        const { total_units_count: basicOrderUnitCount } =
+          calculateTotalValueAndUnits(basicOrder);
+        expect(basicOrderUnitCount).toBe(6);
+
+        const { total_units_count: orderMultipleDiscountTypesUnitCount } =
+          calculateTotalValueAndUnits(orderMultipleDiscountTypes);
+        expect(orderMultipleDiscountTypesUnitCount).toBe(7);
+
+        const { total_units_count: orderDistinctUnitsUnitCount } =
+          calculateTotalValueAndUnits(orderDistinctUnits);
+        expect(orderDistinctUnitsUnitCount).toBe(28);
       });
 
       it('should return 0 for an empty array', () => {
-        expect(countTotalUnits([])).toBe(0);
+        const { total_units_count } = calculateTotalValueAndUnits(orderNoItems);
+        expect(total_units_count).toBe(0);
       });
     });
   });

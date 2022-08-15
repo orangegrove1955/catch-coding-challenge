@@ -12,13 +12,13 @@ import { Order, OrderItem } from './interfaces/Order';
 export const processSingleRecord = (order: Order): CSVLine => {
   if (!order.items) return;
 
-  const total_order_value = calculateTotalValue(order);
+  const { total_order_value, total_units_count } =
+    calculateTotalValueAndUnits(order);
   if (total_order_value === 0) return;
 
   const order_id = order.order_id;
   const order_datetime = formatDateTime(order.order_date);
   const distinct_unit_count = countDistinctUnits(order.items);
-  const total_units_count = countTotalUnits(order.items);
   const average_unit_price = calculateAverageUnitPrice(
     total_order_value,
     total_units_count
@@ -62,16 +62,29 @@ export const calculateAverageUnitPrice = (
 };
 
 /**
- * Calculate the total value of an order, not including shipping prices.
+ * Calculate the total value and unit count of an order.
+ *
  * The total value is the sum of all units based on the quantity and unit
- * price of each distinct unit, minus any discounts for the order.
+ * price of each distinct unit, minus any discounts for the order. It
+ * does not include shipping prices.
+ *
+ * The total unit count is the sum of all distinct units throughout the order
  * @param order Order to calculate total for
- * @returns Order's total value in dollars
+ * @returns total_order_value: Order's total value in dollars
+ * @returns total_units_count: Order's total unit count
  */
-export const calculateTotalValue = (order: Order): number => {
-  const rawTotal = order.items.reduce((accumulator, item) => {
-    return accumulator + item.quantity * item.unit_price;
-  }, 0);
+export const calculateTotalValueAndUnits = (
+  order: Order
+): { total_order_value: number; total_units_count: number } => {
+  const { rawTotal, total_units_count } = order.items.reduce(
+    ({ rawTotal, total_units_count }, item) => {
+      return {
+        rawTotal: rawTotal + item.quantity * item.unit_price,
+        total_units_count: total_units_count + item.quantity
+      };
+    },
+    { rawTotal: 0, total_units_count: 0 }
+  );
 
   let totalValue = roundValue(rawTotal);
 
@@ -86,7 +99,7 @@ export const calculateTotalValue = (order: Order): number => {
     }
   }
 
-  return totalValue;
+  return { total_order_value: totalValue, total_units_count };
 };
 
 /**
@@ -98,20 +111,6 @@ export const calculateTotalValue = (order: Order): number => {
  */
 export const countDistinctUnits = (items: OrderItem[]): number => {
   return items.length;
-};
-
-/**
- * Count the number of total units in an order based on quantities
- * of each distinct unit in items array
- * @param items Array of items to count
- * @returns Number of total units in order
- */
-export const countTotalUnits = (items: OrderItem[]): number => {
-  const result = items.reduce((accumulator, item) => {
-    return accumulator + item.quantity;
-  }, 0);
-
-  return result;
 };
 
 /**

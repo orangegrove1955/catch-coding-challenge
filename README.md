@@ -14,6 +14,8 @@ Streams were chosen for this project to allow continuously flowing data, which w
 
 It was mentioned this task should not take more than a few hours, so some limitations have occurred from trying to stick to that. The most noticeable is the lack of testing for streams, in particular the downloading of the file, as well as the writeable stream to output the CSV file. While in a proper development situation these would be necessary, they have been omitted here as there are very few examples online of proper testing, and the time it would have taken would have prevented the task being completed.
 
+Additionally, I decided to calculate the total price and total unit count in the same reduce statement, to minimise the number of array operations required to complete a processing of each line.
+
 ## Installation
 
 To install the project, ensure version **8.11.0** of npm is installed, and run `npm install` from the root directory
